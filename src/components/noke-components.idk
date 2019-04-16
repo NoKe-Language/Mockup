@@ -1,0 +1,35 @@
+// Those are the basic noke components
+// It is a mockup, those components will probably have way more properties
+
+// not sure... not sure at all
+
+class Component:
+    width, height, x, y: float
+    anchors : Anchor
+
+    fun _init():
+        &bind("Component") //bind this class to a crystal-defined class
+
+
+class Page < Component:
+    title : string
+    width, height : float
+
+    fun _init():
+        &bind("Page") //bind this class to a crystal-defined class
+
+class Label < Component:
+    text : string
+    background_color, fore_color, border_color : Color
+
+    fun _init():
+        &bind("Label") //bind this class to a crystal-defined class
+
+class Button < Label:
+    text : string
+    clicked, pressed, released : function // event handlers
+    
+    fun _init():
+        &bind("Button") //bind this class to a crystal-defined class
+
+// etc ..

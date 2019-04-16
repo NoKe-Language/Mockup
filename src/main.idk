@@ -1,0 +1,7 @@
+// import/using or not ? all files will be concatened in a single file
+import "root://src/pages/home/home-page.idk"
+
+class Main: //entry point
+    fun _init():
+        log("starting app")
+        init_view(HomePage()) // init_view sets the root page and starts it

@@ -1,0 +1,29 @@
+import "root://src/components/noke-components.idk"
+
+class HomePage < Page:
+
+    /// Create the subcomponents of the page
+    fun design():
+        $background-color = #1c1c1c
+        $fore_color = #eeeeee
+        $button := Button:
+            text "Suivant"
+            pos x(50%) y(80%) //other possibility for flagger ?
+            anchored right bottom
+        $welcome_label := Label:
+            text "Bienvenue dans NoKe !"
+            pos above($button)
+            margin 10px
+        $img := Image:
+            src "root://resources/noke_logo_simple.png"
+            pos above($label) //auto anchor bottom
+            margin 10px
+
+    fun _init():
+        $design()
+
+    fun buttonReleased(sender : Button, event : ClickEvent):
+        sender.text = "En êtes vous sûrs ?" //petit test utf 8
+
+
+    
