@@ -4,15 +4,15 @@ main:
     log $t0
     # init_view(HomePage())
     inst 11
-    j _init_HomePage
+    jal _init_HomePage
     # <something to trigger the rendering>
 
 _init_HomePage:
     # push stack
     sst $ra, 0($sp)
-    addi $sp, $sp, 1
+    addi $sp, $sp, 1 
 
-    j design_HomePage
+    jal design_HomePage
 
     #pop stack
     subi $sp, $sp, 1
@@ -32,7 +32,7 @@ design_HomePage:
     li $a2, 28
     li $a3, 1
     # $ip for background color is the same as $ip for HomePage
-    j _init_Color
+    jal _init_Color
 
     # fore color
     addi $ip, 4
@@ -40,22 +40,22 @@ design_HomePage:
     li $a1, 238
     li $a2, 238
     li $a3, 1
-    j _init_Color
+    jal _init_Color
 
     # Button (only text for now)
     addi $ip, 4
     lstr $a0, "Suivant"
-    j _init_Button
+    jal _init_Button
 
     # Label (only text for now)
     addi $ip, 1
     lstr $a0, "Bienvenue dans NoKe !"
-    j _init_Label
+    jal _init_Label
 
     # Image (only src for now)
     addi $ip, 1
     lstr $a0, "root://resources/noke_logo_simple.png"
-    j _init_Image
+    jal _init_Image
 
     # pop stack
     subi $sp, $sp, 2
