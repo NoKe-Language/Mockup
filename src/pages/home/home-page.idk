@@ -10,6 +10,7 @@ class HomePage < Page:
             text "Suivant"
             pos x(50%) y(80%) //other possibility for flagger ?
             anchored right bottom
+            released $buttonReleased
         $welcome_label := Label:
             text "Bienvenue dans NoKe !"
             pos above($button)
