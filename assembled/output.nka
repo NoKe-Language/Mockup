@@ -1,0 +1,84 @@
+main:   
+    # log("starting app")
+    lstr $t0, "starting app"
+    log $t0
+    # init_view(HomePage())
+    inst 11
+    j _init_HomePage
+    # <something to trigger the rendering>
+
+_init_HomePage:
+    # push stack
+    sst $ra, 0($sp)
+    addi $sp, $sp, 1
+
+    j design_HomePage
+
+    #pop stack
+    subi $sp, $sp, 1
+    lst $ra, 0($sp)
+    jr $ra
+    
+
+design_HomePage:
+    # background color
+    # push stack
+    sst $ip, 0($sp)
+    sst $ra, 1($sp)
+    addi $sp, $sp, 2
+
+    li $a0, 28
+    li $a1, 28
+    li $a2, 28
+    li $a3, 1
+    # $ip for background color is the same as $ip for HomePage
+    j _init_Color
+
+    # fore color
+    addi $ip, 4
+    li $a0, 238
+    li $a1, 238
+    li $a2, 238
+    li $a3, 1
+    j _init_Color
+
+    # Button (only text for now)
+    addi $ip, 4
+    lstr $a0, "Suivant"
+    j _init_Button
+
+    # Label (only text for now)
+    addi $ip, 1
+    lstr $a0, "Bienvenue dans NoKe !"
+    j _init_Label
+
+    # Image (only src for now)
+    addi $ip, 1
+    lstr $a0, "root://resources/noke_logo_simple.png"
+    j _init_Image
+
+    # pop stack
+    subi $sp, $sp, 2
+    lst $ip, 0($sp)
+    lst $ra, 1($sp)
+
+    jr $ra
+
+_init_Color:
+    smem $a0, 0($ip)
+    smem $a1, 1($ip)
+    smem $a2, 2($ip)
+    smem $a3, 3($ip)
+    jr $ra
+
+_init_Button:
+    smem $a0, 0($ip)
+    jr $ra
+
+_init_Label:
+    smem $a0, 0($ip)
+    jr $ra
+
+_init_Image:
+    smem $a0, 0($ip)
+    jr $ra
