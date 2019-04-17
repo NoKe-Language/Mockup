@@ -1,17 +1,25 @@
-main:   
+$init:   
     # log("starting app")
-    lstr $t0, "starting app"
-    log $t0
-    # init_view(HomePage())
-    inst 11
-    jal _init_HomePage
-    # <something to trigger the rendering>
+    lstr $s0, "starting app"
+    log $s0
+    # init_view(HomePage())$
+    jal _init_HomePage # Instantiate new HomePage and store the pointer in $ip
+
+    cnew $s0, 0 # create window
+    css $s0, 0, "My Window" # title = "My Window"
+    csi $s0, 1, 500 # width = 500
+    csi $s0, 2, 600 # height = 600
+    cbind $s0, 0, _render_HomePage # Bind render method to _render_HomePage
+    claunch $s0 # launch window
 
 _init_HomePage:
+
+    inst 5
     # push stack
     sst $ra, 0($sp)
     addi $sp, $sp, 1 
 
+    
     jal design_HomePage
 
     #pop stack
@@ -33,6 +41,7 @@ design_HomePage:
     li $a3, 1
     # $ip for background color is the same as $ip for HomePage
     jal _init_Color
+    la $sO, $ip
 
     # fore color
     addi $ip, 4
@@ -41,30 +50,42 @@ design_HomePage:
     li $a2, 238
     li $a3, 1
     jal _init_Color
+    la $s1, $ip
 
     # Button (only text for now)
     addi $ip, 4
     lstr $a0, "Suivant"
     jal _init_Button
+    la $s2, $ip
 
     # Label (only text for now)
     addi $ip, 1
     lstr $a0, "Bienvenue dans NoKe !"
     jal _init_Label
+    la $s3, $ip
 
     # Image (only src for now)
     addi $ip, 1
     lstr $a0, "root://resources/noke_logo_simple.png"
     jal _init_Image
+    la $s4, $ip
 
     # pop stack
     subi $sp, $sp, 2
     lst $ip, 0($sp)
     lst $ra, 1($sp)
 
+    # store addresses
+    smem $s0, 0($ip)
+    smem $s1, 1($ip)
+    smem $s2, 2($ip)
+    smem $s3, 3($ip)
+    smem $s4, 4($ip)
+
     jr $ra
 
 _init_Color:
+    inst 4
     smem $a0, 0($ip)
     smem $a1, 1($ip)
     smem $a2, 2($ip)
@@ -72,13 +93,16 @@ _init_Color:
     jr $ra
 
 _init_Button:
+    inst 1
     smem $a0, 0($ip)
     jr $ra
 
 _init_Label:
+    inst 1
     smem $a0, 0($ip)
     jr $ra
 
 _init_Image:
+    inst 1
     smem $a0, 0($ip)
     jr $ra
